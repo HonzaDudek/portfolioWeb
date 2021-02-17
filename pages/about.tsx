@@ -4,7 +4,6 @@ import Box from '@material-ui/core/Box';
 import Typography from '@material-ui/core/Typography';
 import { Button, Container, makeStyles } from '@material-ui/core';
 import Image from 'next/image';
-import Link from 'next/link';
 import Layout, { siteTitle } from '../components/layout';
 import { theme } from '../styles/theme';
 
@@ -94,52 +93,42 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-export default function Home() {
+export default function About() {
   const classes = useStyles();
 
   return (
-    <Layout home isDark>
+    <Layout>
       <Head>
         <title>{siteTitle}</title>
       </Head>
       <Container maxWidth={'xl'} className={classes.container}>
         <Box component='section' className={classes.leftSection}>
-          <Typography variant={'h3'} align={'left'} color={'textPrimary'}>
-            Dobrý den, jmenuji se
-          </Typography>
-          <Typography
-            variant={'h3'}
-            align={'left'}
-            className={classes.highlightedText}
-          >
-            Jan Dudek
-          </Typography>
-          <Typography variant={'h3'} align={'left'} color={'textPrimary'}>
-            a společně vytvoříme váš nový web
-          </Typography>
-          <Button className={classes.ctaButton}>Chci web</Button>
+          <Image
+            src={'/images/profile.jpg'}
+            height={'630px'}
+            width={'630px'}
+            className={classes.profilePicture}
+          />
         </Box>
         <Box component='section' className={classes.rightSection}>
-          <Box className={classes.outerRing}>
-            <Box className={classes.innerRing}>
-              <Image
-                src={'/images/profile.jpg'}
-                height={'630px'}
-                width={'630px'}
-                className={classes.profilePicture}
-              />
-            </Box>
-          </Box>
+          <Typography variant={'body1'}>
+            Vystudoval jsem Vysokou školu ekonomickou v Praze, během studií jsem
+            se věnoval marketingu, nejprve průzkumu trhu v Komerční bance a
+            následně online marketingu konzultant v rámci reklamní skupiny
+            Publicis Groupe. Programování bylo vždy mým koníčkem a tak jsem se v
+            roce 2018 rozhodl se tomuto oboru věnovat naplno. Prozatím jsem se
+            věnoval spíše práci na týmových projektech, ať už například aplikace
+            Effento nebo v poslední době především Alza.cz. Rád bych se ale také
+            věnoval projektům, které mohu s klienty napřímo.
+          </Typography>
         </Box>
-        <Link href='/pages/about.tsx'>
-          <Button
-            variant={'outlined'}
-            className={classes.aboutButton}
-            color='secondary'
-          >
-            O mě
-          </Button>
-        </Link>
+        <Button
+          variant={'outlined'}
+          className={classes.aboutButton}
+          color='secondary'
+        >
+          O mě
+        </Button>
       </Container>
     </Layout>
   );
