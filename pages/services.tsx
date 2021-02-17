@@ -1,6 +1,7 @@
 import React from 'react';
 import Head from 'next/head';
-import { Container, makeStyles } from '@material-ui/core';
+import { Button, Container, makeStyles } from '@material-ui/core';
+import Link from 'next/link';
 import Layout, { siteTitle } from '../components/layout';
 
 const useStyles = makeStyles(() => ({
@@ -33,6 +34,12 @@ const useStyles = makeStyles(() => ({
     height: 'calc(100vh - 67px)',
     justifyContent: 'space-evenly',
   },
+  aboutButton: {
+    width: 210,
+    position: 'fixed',
+    left: 'calc(50% - 105px)',
+    bottom: 30,
+  },
 }));
 
 export default function Services() {
@@ -45,6 +52,15 @@ export default function Services() {
       </Head>
       <Container maxWidth={'xl'} className={classes.container}>
         services
+        <Link href='/contact'>
+          <Button
+            variant={'outlined'}
+            className={classes.aboutButton}
+            color='secondary'
+          >
+            Kontakt
+          </Button>
+        </Link>
       </Container>
     </Layout>
   );

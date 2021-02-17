@@ -37,6 +37,12 @@ const useStyles = makeStyles(() => ({
   highlightedText: {
     color: theme.customTheme.colors.terciary,
   },
+  aboutButton: {
+    width: 210,
+    position: 'fixed',
+    left: 'calc(50% - 105px)',
+    bottom: 30,
+  },
 }));
 
 export default function Contact() {

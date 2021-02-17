@@ -4,6 +4,7 @@ import Box from '@material-ui/core/Box';
 import Typography from '@material-ui/core/Typography';
 import { Button, Container, makeStyles } from '@material-ui/core';
 import Image from 'next/image';
+import Link from 'next/link';
 import Layout, { siteTitle } from '../components/layout';
 import { theme } from '../styles/theme';
 
@@ -122,13 +123,15 @@ export default function About() {
             věnoval projektům, které mohu s klienty napřímo.
           </Typography>
         </Box>
-        <Button
-          variant={'outlined'}
-          className={classes.aboutButton}
-          color='secondary'
-        >
-          O mě
-        </Button>
+        <Link href='/services'>
+          <Button
+            variant={'outlined'}
+            className={classes.aboutButton}
+            color='primary'
+          >
+            Služby
+          </Button>
+        </Link>
       </Container>
     </Layout>
   );
