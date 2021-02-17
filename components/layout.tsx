@@ -9,13 +9,10 @@ import {
 } from '@material-ui/core';
 import Head from 'next/head';
 import Link from 'next/link';
-import React, { PropsWithChildren, ReactNode } from 'react';
+import React, { PropsWithChildren } from 'react';
 import classNames from 'classnames';
-import { JSXElement } from '@babel/types';
 import { ServerStyleSheets } from '@material-ui/styles';
-import Document from 'next/document';
 import { theme } from '../styles/theme';
-import MyDocument from '../pages/_document';
 import styles from './layout.module.css';
 
 export const siteTitle = 'Jan Dudek - Web development';
