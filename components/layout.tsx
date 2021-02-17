@@ -44,7 +44,7 @@ const Layout = ({
                   children,
                   home,
                   isDark,
-                }: PropsWithChildren<LayoutProps>): ReactNode => {
+                }: PropsWithChildren<LayoutProps>): JSX.Element => {
   const classes = useStyles({ isDark });
   return (
     <>
