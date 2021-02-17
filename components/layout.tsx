@@ -12,7 +12,10 @@ import Link from 'next/link';
 import React, { PropsWithChildren, ReactNode } from 'react';
 import classNames from 'classnames';
 import { JSXElement } from '@babel/types';
+import { ServerStyleSheets } from '@material-ui/styles';
+import Document from 'next/document';
 import { theme } from '../styles/theme';
+import MyDocument from '../pages/_document';
 import styles from './layout.module.css';
 
 export const siteTitle = 'Jan Dudek - Web development';
@@ -119,6 +122,24 @@ const Layout = ({
       </ThemeProvider>
     </>
   );
+};
+
+Layout.getInitialProps = async ctx => {
+  // Render app and page and get the context of the page with collected side effects.
+  const sheets = new ServerStyleSheets();
+  const originalRenderPage = ctx.renderPage;
+
+  ctx.renderPage = () =>
+    originalRenderPage({
+      enhanceApp: App => props => sheets.collect(<App {...props} />),
+    });
+
+  return {
+    // Styles fragment is rendered after the app and page rendering finish.
+    styles: [
+      <React.Fragment key='styles'>{sheets.getStyleElement()}</React.Fragment>,
+    ],
+  };
 };
 
 export default Layout;

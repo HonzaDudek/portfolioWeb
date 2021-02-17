@@ -131,7 +131,7 @@ export default function Home() {
             </Box>
           </Box>
         </Box>
-        <Link href='/pages/about.tsx'>
+        <Link href='/about'>
           <Button
             variant={'outlined'}
             className={classes.aboutButton}
