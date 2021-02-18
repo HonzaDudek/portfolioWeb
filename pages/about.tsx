@@ -7,6 +7,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import Layout, { siteTitle } from '../components/layout';
 import { theme } from '../styles/theme';
+import { handExitComplete } from '../utils/handleTransition';
 
 const useStyles = makeStyles(() => ({
   section: {
@@ -88,7 +89,7 @@ const useStyles = makeStyles(() => ({
   },
   aboutButton: {
     width: 210,
-    position: 'fixed',
+    position: 'absolute',
     left: 'calc(50% - 105px)',
     bottom: 30,
   },
@@ -98,41 +99,35 @@ export default function About() {
   const classes = useStyles();
 
   return (
-    <Layout>
-      <Head>
-        <title>{siteTitle}</title>
-      </Head>
-      <Container maxWidth={'xl'} className={classes.container}>
-        <Box component='section' className={classes.leftSection}>
-          <Image
-            src={'/images/profile.jpg'}
-            height={'630px'}
-            width={'630px'}
-            className={classes.profilePicture}
-          />
-        </Box>
-        <Box component='section' className={classes.rightSection}>
-          <Typography variant={'body1'}>
-            Vystudoval jsem Vysokou školu ekonomickou v Praze, během studií jsem
-            se věnoval marketingu, nejprve průzkumu trhu v Komerční bance a
-            následně online marketingu konzultant v rámci reklamní skupiny
-            Publicis Groupe. Programování bylo vždy mým koníčkem a tak jsem se v
-            roce 2018 rozhodl se tomuto oboru věnovat naplno. Prozatím jsem se
-            věnoval spíše práci na týmových projektech, ať už například aplikace
-            Effento nebo v poslední době především Alza.cz. Rád bych se ale také
-            věnoval projektům, které mohu s klienty napřímo.
-          </Typography>
-        </Box>
-        <Link href='/services'>
-          <Button
-            variant={'outlined'}
-            className={classes.aboutButton}
-            color='primary'
-          >
-            Služby
-          </Button>
-        </Link>
-      </Container>
-    </Layout>
+    <>
+      <Box component='section' className={classes.leftSection}>
+        <Image
+          src={'/images/profile.jpg'}
+          height={'630px'}
+          width={'630px'}
+          className={classes.profilePicture}
+        />
+      </Box>
+      <Box component='section' className={classes.rightSection}>
+        <Typography variant={'body1'} color={'textPrimary'}>
+          Vystudoval jsem Vysokou školu ekonomickou v Praze, během studií jsem
+          se věnoval marketingu, nejprve průzkumu trhu v Komerční bance a
+          následně online marketingu konzultant v rámci reklamní skupiny
+          Publicis Groupe. Programování bylo vždy mým koníčkem a tak jsem se v
+          roce 2018 rozhodl se tomuto oboru věnovat naplno. Prozatím jsem se
+          věnoval spíše práci na týmových projektech, ať už například aplikace
+          Effento nebo v poslední době především Alza.cz. Rád bych se ale také
+          věnoval projektům, které mohu s klienty napřímo.
+        </Typography>
+      </Box>
+      <Button
+        variant={'outlined'}
+        className={classes.aboutButton}
+        color='primary'
+        onClick={() => handExitComplete('#services')}
+      >
+        Služby
+      </Button>
+    </>
   );
 }

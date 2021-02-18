@@ -1,12 +1,16 @@
 import React from 'react';
-import Head from 'next/head';
 import Box from '@material-ui/core/Box';
 import Typography from '@material-ui/core/Typography';
-import { Button, Container, makeStyles } from '@material-ui/core';
+import { Button, makeStyles } from '@material-ui/core';
 import Image from 'next/image';
-import Link from 'next/link';
-import Layout, { siteTitle } from '../components/layout';
+import classnames from 'classnames';
+import Layout from '../components/layout';
 import { theme } from '../styles/theme';
+import { Menu } from '../components/menu';
+import { handExitComplete } from '../utils/handleTransition';
+import About from './about';
+import Services from './services';
+import Contact from './contact';
 
 const useStyles = makeStyles(() => ({
   section: {
@@ -18,6 +22,18 @@ const useStyles = makeStyles(() => ({
     padding: 20,
     maxWidth: 1280,
     margin: '0 auto',
+  },
+  page: {
+    width: '100%',
+    display: 'flex',
+    justifyContent: 'center',
+    height: '100vh',
+    margin: 'auto',
+    backgroundColor: '#F2F2F2',
+    position: 'relative',
+  },
+  dark: {
+    backgroundColor: '#152840',
   },
   service: {
     padding: 10,
@@ -31,12 +47,6 @@ const useStyles = makeStyles(() => ({
     '& .icon': {
       marginBottom: 20,
     },
-  },
-  container: {
-    display: 'flex',
-    width: '100vw',
-    height: 'calc(100vh - 67px)',
-    justifyContent: 'space-evenly',
   },
   highlightedText: {
     color: theme.customTheme.colors.terciary,
@@ -82,65 +92,90 @@ const useStyles = makeStyles(() => ({
   },
   ctaButton: {
     backgroundColor: theme.customTheme.colors.terciary,
+    color: theme.palette.text.secondary,
     height: 60,
     width: 300,
     marginTop: 30,
   },
   aboutButton: {
     width: 210,
-    position: 'fixed',
+    position: 'absolute',
     left: 'calc(50% - 105px)',
     bottom: 30,
   },
 }));
 
+function HomePage() {
+  const classes = useStyles();
+
+  return (
+    <>
+      <Box component='section' className={classes.leftSection}>
+        <Typography variant={'h3'} align={'left'} color={'textSecondary'}>
+          Dobrý den, jmenuji se
+        </Typography>
+        <Typography
+          variant={'h3'}
+          align={'left'}
+          className={classes.highlightedText}
+        >
+          Jan Dudek
+        </Typography>
+        <Typography variant={'h3'} align={'left'} color={'textSecondary'}>
+          a společně vytvoříme váš nový web
+        </Typography>
+        <Button
+          className={classes.ctaButton}
+          onClick={() => handExitComplete('#contact')}
+        >
+          Chci web
+        </Button>
+      </Box>
+      <Box component='section' className={classes.rightSection}>
+        <Box className={classes.outerRing}>
+          <Box className={classes.innerRing}>
+            <Image
+              src={'/images/profile.jpg'}
+              height={'630px'}
+              width={'630px'}
+              className={classes.profilePicture}
+            />
+          </Box>
+        </Box>
+      </Box>
+      <Button
+        variant={'outlined'}
+        className={classes.aboutButton}
+        color='secondary'
+        onClick={() => handExitComplete('#about')}
+      >
+        O mě
+      </Button>
+    </>
+  );
+}
+
 export default function Home() {
   const classes = useStyles();
 
   return (
-    <Layout home isDark>
-      <Head>
-        <title>{siteTitle}</title>
-      </Head>
-      <Container maxWidth={'xl'} className={classes.container}>
-        <Box component='section' className={classes.leftSection}>
-          <Typography variant={'h3'} align={'left'} color={'textPrimary'}>
-            Dobrý den, jmenuji se
-          </Typography>
-          <Typography
-            variant={'h3'}
-            align={'left'}
-            className={classes.highlightedText}
-          >
-            Jan Dudek
-          </Typography>
-          <Typography variant={'h3'} align={'left'} color={'textPrimary'}>
-            a společně vytvoříme váš nový web
-          </Typography>
-          <Button className={classes.ctaButton}>Chci web</Button>
-        </Box>
-        <Box component='section' className={classes.rightSection}>
-          <Box className={classes.outerRing}>
-            <Box className={classes.innerRing}>
-              <Image
-                src={'/images/profile.jpg'}
-                height={'630px'}
-                width={'630px'}
-                className={classes.profilePicture}
-              />
-            </Box>
-          </Box>
-        </Box>
-        <Link href='/about'>
-          <Button
-            variant={'outlined'}
-            className={classes.aboutButton}
-            color='secondary'
-          >
-            O mě
-          </Button>
-        </Link>
-      </Container>
+    <Layout home>
+      <Box id={'#home'} className={classnames(classes.page, classes.dark)}>
+        <Menu isDark />
+        <HomePage />
+      </Box>
+      <Box id={'#about'} className={classes.page}>
+        <Menu />
+        <About />
+      </Box>
+      <Box id={'#services'} className={classnames(classes.page, classes.dark)}>
+        <Menu isDark />
+        <Services />
+      </Box>
+      <Box id={'#contact'} className={classes.page}>
+        <Menu />
+        <Contact />
+      </Box>
     </Layout>
   );
 }

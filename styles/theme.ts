@@ -18,8 +18,8 @@ export const theme = createMuiTheme(
         main: '#F2F2F2',
       },
       text: {
-        primary: '#FFFFFF',
-        secondary: '#80DDF2',
+        primary: '#152840',
+        secondary: '#F2F2F2',
         disabled: '#516073',
       },
     },
@@ -30,5 +30,5 @@ export const theme = createMuiTheme(
         terciary: '#80DDF2',
       },
     },
-  },
+  }
 ) as CustomTheme;

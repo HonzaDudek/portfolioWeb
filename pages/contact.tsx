@@ -39,7 +39,7 @@ const useStyles = makeStyles(() => ({
   },
   aboutButton: {
     width: 210,
-    position: 'fixed',
+    position: 'absolute',
     left: 'calc(50% - 105px)',
     bottom: 30,
   },
@@ -50,9 +50,6 @@ export default function Contact() {
 
   return (
     <Layout>
-      <Head>
-        <title>{siteTitle}</title>
-      </Head>
       <Container maxWidth={'xl'} className={classes.container}>
         Contact
       </Container>

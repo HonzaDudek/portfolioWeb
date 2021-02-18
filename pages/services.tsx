@@ -3,6 +3,7 @@ import Head from 'next/head';
 import { Button, Container, makeStyles } from '@material-ui/core';
 import Link from 'next/link';
 import Layout, { siteTitle } from '../components/layout';
+import { handExitComplete } from '../utils/handleTransition';
 
 const useStyles = makeStyles(() => ({
   section: {
@@ -36,7 +37,7 @@ const useStyles = makeStyles(() => ({
   },
   aboutButton: {
     width: 210,
-    position: 'fixed',
+    position: 'absolute',
     left: 'calc(50% - 105px)',
     bottom: 30,
   },
@@ -46,22 +47,16 @@ export default function Services() {
   const classes = useStyles();
 
   return (
-    <Layout isDark>
-      <Head>
-        <title>{siteTitle}</title>
-      </Head>
-      <Container maxWidth={'xl'} className={classes.container}>
-        services
-        <Link href='/contact'>
-          <Button
-            variant={'outlined'}
-            className={classes.aboutButton}
-            color='secondary'
-          >
-            Kontakt
-          </Button>
-        </Link>
-      </Container>
-    </Layout>
+    <>
+      services
+      <Button
+        variant={'outlined'}
+        className={classes.aboutButton}
+        color='secondary'
+        onClick={() => handExitComplete('#contact')}
+      >
+        Kontakt
+      </Button>
+    </>
   );
 }

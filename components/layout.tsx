@@ -3,17 +3,13 @@ import {
   makeStyles,
   ThemeProvider,
   Box,
-  List,
-  ListItem,
-  ListItemText,
+  Container,
 } from '@material-ui/core';
 import Head from 'next/head';
-import Link from 'next/link';
 import React, { PropsWithChildren } from 'react';
 import classNames from 'classnames';
 import { ServerStyleSheets } from '@material-ui/styles';
 import { theme } from '../styles/theme';
-import styles from './layout.module.css';
 
 export const siteTitle = 'Jan Dudek - Web development';
 
@@ -24,28 +20,25 @@ interface LayoutProps {
 
 const useStyles = makeStyles(() => ({
   root: ({ isDark }: LayoutProps) => ({
-    backgroundColor: isDark ? '#152840' : '#F2F2F2',
     height: '100vh',
     width: '100vw',
   }),
-  header: {},
-  menu: {
+
+  container: {
     display: 'flex',
-    width: 600,
+    flexDirection: 'column',
+    padding: 0,
+    width: '100vw',
     justifyContent: 'space-evenly',
-    marginLeft: 'auto',
   },
-  menuItem: ({ isDark }: LayoutProps) => ({
-    color: isDark ? '#F2F2F2' : '#152840',
-  }),
 }));
 
 const Layout = ({
                   children,
-                  home,
                   isDark,
                 }: PropsWithChildren<LayoutProps>): JSX.Element => {
   const classes = useStyles({ isDark });
+
   return (
     <>
       <Head>
@@ -79,42 +72,11 @@ const Layout = ({
       <CssBaseline />
       <ThemeProvider theme={theme}>
         <Box className={classNames(classes.root)}>
-          <header className={classes.header}>
-            <List className={classes.menu}>
-              <Link href='/'>
-                <ListItem button>
-                  <ListItemText className={classes.menuItem}>Domů</ListItemText>
-                </ListItem>
-              </Link>
-              <Link href='/about'>
-                <ListItem button>
-                  <ListItemText className={classes.menuItem}>O mě</ListItemText>
-                </ListItem>
-              </Link>
-              <Link href='/services'>
-                <ListItem button>
-                  <ListItemText className={classes.menuItem}>
-                    Služby
-                  </ListItemText>
-                </ListItem>
-              </Link>
-              <Link href='/contact'>
-                <ListItem button>
-                  <ListItemText className={classes.menuItem}>
-                    Kontakt
-                  </ListItemText>
-                </ListItem>
-              </Link>
-            </List>
-          </header>
-          <main>{children}</main>
-          {!home && (
-            <div className={styles.backToHome}>
-              <Link href='/'>
-                <span>← Back to home</span>
-              </Link>
-            </div>
-          )}
+          <main>
+            <Container maxWidth={'xl'} className={classes.container}>
+              {children}
+            </Container>
+          </main>
         </Box>
       </ThemeProvider>
     </>
