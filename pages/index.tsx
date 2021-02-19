@@ -1,11 +1,12 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Box from '@material-ui/core/Box';
 import Typography from '@material-ui/core/Typography';
 import { Button, makeStyles } from '@material-ui/core';
 import Image from 'next/image';
 import classnames from 'classnames';
+import ReactFullpage from '@fullpage/react-fullpage';
 import Layout from '../components/layout';
-import { theme } from '../styles/theme';
+import theme from '../styles/theme';
 import { Menu } from '../components/menu';
 import { handExitComplete } from '../utils/handleTransition';
 import About from './about';
@@ -13,9 +14,6 @@ import Services from './services';
 import Contact from './contact';
 
 const useStyles = makeStyles(() => ({
-  section: {
-    margin: '0 auto',
-  },
   services: {
     width: '100%',
     display: 'flex',
@@ -31,6 +29,10 @@ const useStyles = makeStyles(() => ({
     margin: 'auto',
     backgroundColor: '#F2F2F2',
     position: 'relative',
+    flexDirection: 'column',
+    [theme.breakpoints.up('md')]: {
+      flexDirection: 'row',
+    },
   },
   dark: {
     backgroundColor: '#152840',
@@ -51,41 +53,74 @@ const useStyles = makeStyles(() => ({
   highlightedText: {
     color: theme.customTheme.colors.terciary,
   },
-  leftSection: {
+  section: {
+    margin: '0 auto',
     width: '50%',
-    maxWidth: 700,
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'center',
+    height: '75%',
+    maxWidth: 770,
+    alignSelf: 'center',
+    '& h1': {
+      fontWeight: 700,
+    },
+  },
+  leftSection: {
     alignItems: 'flex-start',
   },
   rightSection: {
-    width: '50%',
-    maxWidth: 770,
-    display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'center',
     alignItems: 'center',
   },
   outerRing: {
-    width: 770,
-    height: 770,
     borderRadius: '50%',
+    position: 'relative',
     border: '1px solid #707070',
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'center',
+    width: 300,
+    height: 300,
+    [theme.breakpoints.up('md')]: {
+      width: 550,
+      height: 550,
+    },
+    [theme.breakpoints.up('lg')]: {
+      width: 770,
+      height: 770,
+    },
   },
   innerRing: {
-    width: 700,
-    height: 700,
     borderRadius: '50%',
     border: '1px solid #707070',
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'center',
+    width: 270,
+    height: 270,
+    [theme.breakpoints.up('md')]: {
+      width: 520,
+      height: 520,
+    },
+    [theme.breakpoints.up('lg')]: {
+      width: 740,
+      height: 740,
+    },
+  },
+  imageWrapper: {
+    position: 'relative',
+    width: 240,
+    height: 240,
+    [theme.breakpoints.up('md')]: {
+      width: 490,
+      height: 490,
+    },
+    [theme.breakpoints.up('lg')]: {
+      width: 710,
+      height: 710,
+    },
   },
   profilePicture: {
     borderRadius: '50%',
@@ -110,36 +145,46 @@ function HomePage() {
 
   return (
     <>
-      <Box component='section' className={classes.leftSection}>
-        <Typography variant={'h3'} align={'left'} color={'textSecondary'}>
+      <Box
+        component='section'
+        className={classnames(classes.leftSection, classes.section)}
+      >
+        <Typography variant={'h1'} align={'left'} color={'textSecondary'}>
           Dobrý den, jmenuji se
         </Typography>
         <Typography
-          variant={'h3'}
+          variant={'h1'}
           align={'left'}
           className={classes.highlightedText}
         >
           Jan Dudek
         </Typography>
-        <Typography variant={'h3'} align={'left'} color={'textSecondary'}>
+        <Typography variant={'h1'} align={'left'} color={'textSecondary'}>
           a společně vytvoříme váš nový web
         </Typography>
         <Button
           className={classes.ctaButton}
           onClick={() => handExitComplete('#contact')}
         >
-          Chci web
+          <Typography variant={'body1'} align={'left'} color={'textSecondary'}>
+            Chci web
+          </Typography>
         </Button>
       </Box>
-      <Box component='section' className={classes.rightSection}>
+      <Box
+        component='section'
+        className={classnames(classes.rightSection, classes.section)}
+      >
         <Box className={classes.outerRing}>
           <Box className={classes.innerRing}>
-            <Image
-              src={'/images/profile.jpg'}
-              height={'630px'}
-              width={'630px'}
-              className={classes.profilePicture}
-            />
+            <Box className={classes.imageWrapper}>
+              <Image
+                src={'/images/profile.jpg'}
+                className={classes.profilePicture}
+                layout='fill'
+                objectFit={'cover'}
+              />
+            </Box>
           </Box>
         </Box>
       </Box>
@@ -149,7 +194,9 @@ function HomePage() {
         color='secondary'
         onClick={() => handExitComplete('#about')}
       >
-        O mě
+        <Typography variant={'body1'} align={'left'} color={'textSecondary'}>
+          O mě
+        </Typography>
       </Button>
     </>
   );
@@ -158,23 +205,41 @@ function HomePage() {
 export default function Home() {
   const classes = useStyles();
 
+  const [darkMenu, setDarkMenu] = useState(false);
+
+  useEffect(() => {
+    if (
+      window &&
+      (window.location.hash === 'home' || window.location.hash === 'services')
+    ) {
+      setDarkMenu(true);
+    } else {
+      setDarkMenu(false);
+    }
+  }, []);
+
   return (
     <Layout home>
+      <Menu isDark={true} />
       <Box id={'#home'} className={classnames(classes.page, classes.dark)}>
-        <Menu isDark />
-        <HomePage />
+        <ReactFullpage.Wrapper>
+          <HomePage />
+        </ReactFullpage.Wrapper>
       </Box>
       <Box id={'#about'} className={classes.page}>
-        <Menu />
-        <About />
+        <ReactFullpage.Wrapper>
+          <About />
+        </ReactFullpage.Wrapper>
       </Box>
       <Box id={'#services'} className={classnames(classes.page, classes.dark)}>
-        <Menu isDark />
-        <Services />
+        <ReactFullpage.Wrapper>
+          <Services />
+        </ReactFullpage.Wrapper>{' '}
       </Box>
       <Box id={'#contact'} className={classes.page}>
-        <Menu />
-        <Contact />
+        <ReactFullpage.Wrapper>
+          <Contact />
+        </ReactFullpage.Wrapper>{' '}
       </Box>
     </Layout>
   );

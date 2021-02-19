@@ -1,8 +1,7 @@
 import React from 'react';
-import Head from 'next/head';
 import { Container, makeStyles } from '@material-ui/core';
-import Layout, { siteTitle } from '../components/layout';
-import { theme } from '../styles/theme';
+import Layout from '../components/layout';
+import theme from '../styles/theme';
 
 const useStyles = makeStyles(() => ({
   section: {

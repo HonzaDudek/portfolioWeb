@@ -9,7 +9,7 @@ import Head from 'next/head';
 import React, { PropsWithChildren } from 'react';
 import classNames from 'classnames';
 import { ServerStyleSheets } from '@material-ui/styles';
-import { theme } from '../styles/theme';
+import theme from '../styles/theme';
 
 export const siteTitle = 'Jan Dudek - Web development';
 
@@ -34,9 +34,9 @@ const useStyles = makeStyles(() => ({
 }));
 
 const Layout = ({
-                  children,
-                  isDark,
-                }: PropsWithChildren<LayoutProps>): JSX.Element => {
+  children,
+  isDark,
+}: PropsWithChildren<LayoutProps>): JSX.Element => {
   const classes = useStyles({ isDark });
 
   return (
@@ -63,22 +63,19 @@ const Layout = ({
         <meta
           property='og:image'
           content={`https://og-image.vercel.app/${encodeURI(
-            siteTitle,
+            siteTitle
           )}.png?theme=light&md=0&fontSize=75px&images=https%3A%2F%2Fassets.zeit.co%2Fimage%2Fupload%2Ffront%2Fassets%2Fdesign%2Fnextjs-black-logo.svg`}
         />
         <meta name='og:title' content={siteTitle} />
         <meta name='twitter:card' content='summary_large_image' />
       </Head>
-      <CssBaseline />
-      <ThemeProvider theme={theme}>
-        <Box className={classNames(classes.root)}>
-          <main>
-            <Container maxWidth={'xl'} className={classes.container}>
-              {children}
-            </Container>
-          </main>
-        </Box>
-      </ThemeProvider>
+      <Box className={classNames(classes.root)}>
+        <main>
+          <Container maxWidth={'xl'} className={classes.container}>
+            {children}
+          </Container>
+        </main>
+      </Box>
     </>
   );
 };

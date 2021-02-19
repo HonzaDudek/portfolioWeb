@@ -1,4 +1,8 @@
-import { createMuiTheme, Theme as OriginalTheme } from '@material-ui/core';
+import {
+  createMuiTheme,
+  responsiveFontSizes,
+  Theme as OriginalTheme,
+} from '@material-ui/core';
 
 export interface CustomTheme extends OriginalTheme {
   customTheme: {
@@ -8,7 +12,7 @@ export interface CustomTheme extends OriginalTheme {
   };
 }
 
-export const theme = createMuiTheme(
+let theme = createMuiTheme(
   {
     palette: {
       primary: {
@@ -23,6 +27,13 @@ export const theme = createMuiTheme(
         disabled: '#516073',
       },
     },
+    typography: {
+      fontFamily: 'Roboto',
+      body1: {
+        fontSize: '1.5rem',
+      },
+      fontSize: 16,
+    },
   },
   {
     customTheme: {
@@ -30,5 +41,8 @@ export const theme = createMuiTheme(
         terciary: '#80DDF2',
       },
     },
-  }
-) as CustomTheme;
+  },
+);
+theme = responsiveFontSizes(theme);
+
+export default theme as CustomTheme;

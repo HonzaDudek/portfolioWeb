@@ -1,5 +1,4 @@
 import { List, ListItem, ListItemText, makeStyles } from '@material-ui/core';
-import Link from 'next/link';
 import React from 'react';
 import { handExitComplete } from '../utils/handleTransition';
 
@@ -12,6 +11,8 @@ const useStyles = makeStyles(() => ({
     display: 'flex',
     position: 'absolute',
     right: 20,
+    top: 0,
+    zIndex: 10,
   },
   menu: {
     display: 'flex',

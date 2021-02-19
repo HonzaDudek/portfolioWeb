@@ -1,12 +1,9 @@
 import React from 'react';
-import Head from 'next/head';
 import Box from '@material-ui/core/Box';
 import Typography from '@material-ui/core/Typography';
-import { Button, Container, makeStyles } from '@material-ui/core';
+import { Button, makeStyles } from '@material-ui/core';
 import Image from 'next/image';
-import Link from 'next/link';
-import Layout, { siteTitle } from '../components/layout';
-import { theme } from '../styles/theme';
+import theme from '../styles/theme';
 import { handExitComplete } from '../utils/handleTransition';
 
 const useStyles = makeStyles(() => ({
